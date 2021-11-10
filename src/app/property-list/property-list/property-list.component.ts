@@ -42,14 +42,10 @@ export class PropertyListComponent implements OnInit {
         });
       })
     })
-    // let index: number;
-
+    // let index: number;`
     // index = this.properties.findIndex((x:any) => x.id === cardData.id)
     // console.log(index)
-
     // this.properties.splice(index, 1)
-
-
   }
 
   addProperty() {
