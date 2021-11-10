@@ -1,0 +1,77 @@
+<div class="header container-fluid">
+    <span id="title"><strong>PROPERTY MANAGMENT</strong></span>
+    <div class="header-right">
+        <a>Contact</a>
+        <a>About</a>
+    </div>
+</div>
+
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-lg-12 pb-4">
+            <span class="button">
+                <button mat-raised-button color="primary" (click)="addProperty()">Add Property</button>
+            </span>
+        </div>
+        <div class="col-sm-4 pb-5" *ngFor="let property of properties">
+            <mat-card class="example-card">
+                <mat-card-subtitle><strong>Property Size: {{property.data.size}} Acre</strong></mat-card-subtitle>
+                <mat-card-title> {{property.data.name}}</mat-card-title>
+                <mat-card-content>
+                    <br>
+                    <p class="detail">{{property.data.description}}</p>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-mini-fab color="primary" (click)="deleteProperty(property)" aria-label="Delete">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    <!-- <button mat-raised-button color="primary" (click)="deleteProperty(property)">Delete</button> -->
+                </mat-card-actions>
+                <mat-card-footer>
+                    <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+
+
+    <dx-popup [width]="600" [height]="'auto'" [showTitle]="true" title="Add Property" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="popupVisible">
+        <div *dxTemplate="let data of 'content'">
+            <form [formGroup]="propertyForm" class="userInfoForm">
+                <div class="row profileRow pb-5">
+                    <div class="col">
+                        <dx-text-box name="name" placeholder="Name" stylingMode="underlined" validationMessageMode='always' formControlName="name">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="Name is required">
+                                </dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-box>
+                    </div>
+                    <div class="col">
+                        <dx-text-box name="size" placeholder="Size" validationMessageMode='always' stylingMode="underlined" formControlName="size">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="Size is required">
+                                </dxi-validation-rule>
+                                <dxi-validation-rule type="numeric" message="Size should be a number">
+                                </dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-box>
+                    </div>
+                </div>
+                <div class="row profileRow">
+                    <div class="col">
+                        <dx-text-area name="description" placeholder="Description" validationMessageMode='always' stylingMode="underlined" formControlName="description" [height]="90">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="description is required"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-area>
+                    </div>
+                </div>
+            </form>
+            <span class="buttonGroup">
+                    <dx-button stylingMode="contained" icon="check" text="Submit" type="default"
+                        (onClick)="submit($event)">
+                    </dx-button>
+                </span>
+        </div>
+    </dx-popup>
